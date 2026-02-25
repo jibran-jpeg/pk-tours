@@ -11,7 +11,7 @@ const Services = () => {
     ];
 
     return (
-        <section id="included" className="bg-white bg-[#0a0a0a] py-20 lg:py-32 px-6 lg:px-8 overflow-hidden font-sans transition-colors duration-500">
+        <section id="included" className="bg-[#0a0a0a] py-20 lg:py-32 px-6 lg:px-8 overflow-hidden font-sans transition-colors duration-500">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 mb-12 lg:mb-20">
                     <h2 className="text-3xl md:text-5xl font-light text-white uppercase tracking-[0.2em] font-serif whitespace-nowrap transition-colors">What's Included</h2>

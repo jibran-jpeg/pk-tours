@@ -55,7 +55,7 @@ const Timeline = () => {
                                     viewport={{ once: true, margin: "-100px" }}
                                     className="relative"
                                 >
-                                    <div className="absolute top-2 -left-[25px] md:-left-[33px] w-2 h-2 rounded-full bg-emerald-500 bg-white shadow-[0_0_10px_white] transition-colors" />
+                                    <div className="absolute top-2 -left-[25px] md:-left-[33px] w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white] transition-colors" />
                                     <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
                                         <div className="min-w-[120px]">
                                             <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1 transition-colors">{item.days}</p>
