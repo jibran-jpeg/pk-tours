@@ -29,7 +29,7 @@ function App() {
         <Preloader onLoadingComplete={() => setIsLoading(false)} />
       )}
 
-      <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-500">
+      <div className="min-h-screen bg-black text-white font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-500">
         <Navbar />
         <Hero />
         <Timeline />

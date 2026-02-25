@@ -49,7 +49,7 @@ const Hero = () => {
     ];
 
     return (
-        <section className="relative min-h-screen bg-white dark:bg-black overflow-hidden pt-32" ref={ref}>
+        <section className="relative min-h-screen bg-black overflow-hidden pt-32" ref={ref}>
             {/* Background Image - Local K2 Image with Scroll & Mouse Parallax */}
             <motion.div
                 className="absolute inset-0 z-0 scale-105"
@@ -62,9 +62,9 @@ const Hero = () => {
                 <img
                     src="/assets/images/hero_k2.png"
                     alt="K2 Mountain Pakistan"
-                    className="w-full h-full object-cover opacity-70 -scale-x-100 dark:opacity-70 opacity-50"
+                    className="w-full h-full object-cover opacity-70 -scale-x-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/50 to-white dark:from-black/80 dark:via-transparent dark:to-black" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
             </motion.div>
 
             {/* Giant Text - Scroll & Mouse Parallax */}
@@ -73,10 +73,10 @@ const Hero = () => {
                 style={{ y: yTextScroll }}
             >
                 <motion.div style={{ x: xTextMouse, y: yTextMouse }}>
-                    <h1 className="text-[24vw] md:text-[15vw] font-black leading-none select-none tracking-tighter uppercase font-serif transition-colors duration-700 text-black/[0.05] hover:text-black/[0.1] dark:text-white/[0.05] dark:hover:text-white/[0.08]">
+                    <h1 className="text-[24vw] md:text-[15vw] font-black leading-none select-none tracking-tighter uppercase font-serif transition-colors duration-700 text-white/[0.05] hover:text-white/[0.08]">
                         NORTHERN
                     </h1>
-                    <h1 className="text-[20vw] md:text-[12vw] font-black leading-none select-none tracking-tighter uppercase font-serif -mt-4 md:-mt-8 lg:-mt-12 transition-colors duration-700 text-black/[0.1] hover:text-black/[0.15] dark:text-white/[0.1] dark:hover:text-white/[0.15]">
+                    <h1 className="text-[20vw] md:text-[12vw] font-black leading-none select-none tracking-tighter uppercase font-serif -mt-4 md:-mt-8 lg:-mt-12 transition-colors duration-700 text-white/[0.1] hover:text-white/[0.15]">
                         PAKISTAN
                     </h1>
                 </motion.div>
@@ -93,10 +93,10 @@ const Hero = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 * idx }}
-                                className="flex-shrink-0 snap-start w-32 h-48 md:w-32 md:h-48 rounded-xl overflow-hidden relative group cursor-pointer border border-black/10 dark:border-white/10"
+                                className="flex-shrink-0 snap-start w-32 h-48 md:w-32 md:h-48 rounded-xl overflow-hidden relative group cursor-pointer border border-white/10"
                             >
                                 <img src={card.img} alt={card.label} className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                                <div className="absolute inset-0 bg-white/50 group-hover:bg-white/20 dark:bg-black/50 dark:group-hover:bg-black/20 transition-colors duration-500" />
+                                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-500" />
                                 <div className="absolute bottom-4 left-3 right-3 z-10">
                                     <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-tighter leading-none mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{card.label}</p>
                                     <p className="text-[10px] text-white/90 leading-tight uppercase font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{card.desc}</p>
@@ -108,9 +108,9 @@ const Hero = () => {
                     {/* Right: Expedition Callout */}
                     <div className="lg:col-span-3 flex flex-col items-center lg:items-end w-full">
                         <div className="relative mb-4 md:mb-8 text-center lg:text-right w-full">
-                            <p className="text-gray-500 dark:text-white/40 text-[10px] uppercase tracking-[0.3em] font-bold mb-4">Seasonal Expedition</p>
-                            <h2 className="text-4xl lg:text-3xl text-black dark:text-white font-light font-serif mb-6 leading-tight">Beyond the <br /><span className="italic text-emerald-500 font-normal">Karakoram</span></h2>
-                            <button className="bg-black text-white dark:bg-white dark:text-black px-12 py-4 md:py-3 rounded-md font-bold text-xs tracking-[0.2em] uppercase hover:bg-emerald-500 dark:hover:bg-emerald-500 dark:hover:text-white transition-all shadow-2xl w-full md:w-auto">
+                            <p className="text-white/40 text-[10px] uppercase tracking-[0.3em] font-bold mb-4">Seasonal Expedition</p>
+                            <h2 className="text-4xl lg:text-3xl text-white font-light font-serif mb-6 leading-tight">Beyond the <br /><span className="italic text-emerald-500 font-normal">Karakoram</span></h2>
+                            <button className="bg-white text-black px-12 py-4 md:py-3 rounded-md font-bold text-xs tracking-[0.2em] uppercase hover:bg-emerald-500 hover:text-white transition-all shadow-2xl w-full md:w-auto">
                                 JOIN TREK
                             </button>
                         </div>
@@ -119,7 +119,7 @@ const Hero = () => {
             </div>
 
             {/* Socials Floating */}
-            <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-6 text-gray-400 dark:text-white/40 z-20">
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-6 text-white/40 z-20">
                 <Instagram size={18} className="hover:text-emerald-500 cursor-pointer transition-colors" />
                 <Twitter size={18} className="hover:text-emerald-500 cursor-pointer transition-colors" />
                 <Send size={18} className="hover:text-emerald-500 cursor-pointer transition-colors" />
