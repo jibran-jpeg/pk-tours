@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NavLink = ({ href, children }) => (
-    <a href={href} className="hover:text-white transition-colors">
+    <a href={href} className="hover:text-emerald-500 transition-colors">
         {children}
     </a>
 );
@@ -11,6 +11,19 @@ const NavLink = ({ href, children }) => (
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(true);
+
+    useEffect(() => {
+        // Init theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            setIsDarkMode(false);
+            document.documentElement.classList.remove('dark');
+        } else {
+            setIsDarkMode(true);
+            document.documentElement.classList.add('dark');
+        }
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -20,14 +33,26 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const toggleTheme = () => {
+        const newMode = !isDarkMode;
+        setIsDarkMode(newMode);
+        if (newMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    };
+
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-black/90 backdrop-blur-md py-4 shadow-lg' : 'bg-gradient-to-b from-black/50 to-transparent py-6'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white/90 dark:bg-black/90 backdrop-blur-md py-4 shadow-sm dark:shadow-lg' : 'bg-gradient-to-b from-black/20 dark:from-black/50 to-transparent py-6'}`}>
             <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
                 {/* Logo Area */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-2 text-white"
+                    className={`flex items-center gap-2 ${isScrolled ? 'text-black dark:text-white' : 'text-white'}`}
                 >
                     <Globe size={20} className="text-emerald-500" />
                     <span className="font-bold tracking-[0.2em] text-sm uppercase">PK TOURS</span>
@@ -37,27 +62,45 @@ const Navbar = () => {
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="hidden md:flex items-center gap-12 text-gray-300 text-xs font-semibold tracking-widest uppercase"
+                    className={`hidden md:flex items-center gap-12 text-xs font-semibold tracking-widest uppercase ${isScrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white/80'}`}
                 >
                     <NavLink href="#about">About</NavLink>
                     <NavLink href="#included">Included</NavLink>
                     <NavLink href="#contacts">Contacts</NavLink>
                 </motion.div>
 
-                {/* CTA Button */}
-                <motion.button
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="hidden md:block px-8 py-2 border border-white/30 rounded-full text-white text-xs font-bold tracking-widest hover:bg-white hover:text-black transition-all"
-                >
-                    BOOK
-                </motion.button>
+                {/* Right side: Toggle & CTA */}
+                <div className="hidden md:flex items-center gap-4">
+                    <motion.button
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        onClick={toggleTheme}
+                        className={`p-2 rounded-full border transition-colors ${isScrolled ? 'border-gray-200 text-gray-600 hover:bg-gray-100 dark:border-white/10 dark:text-gray-300 dark:hover:bg-white/5' : 'border-white/30 text-white hover:bg-white/20'}`}
+                        aria-label="Toggle theme"
+                    >
+                        {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+                    </motion.button>
 
-                {/* Mobile Toggle */}
-                <div className="md:hidden">
-                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white hover:text-emerald-500 transition-colors">
+                    <motion.button
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`px-8 py-2 border rounded-full text-xs font-bold tracking-widest transition-all ${isScrolled ? 'border-gray-300 text-black hover:bg-black hover:text-white dark:border-white/30 dark:text-white dark:hover:bg-white dark:hover:text-black' : 'border-white/30 text-white hover:bg-white hover:text-black'}`}
+                    >
+                        BOOK
+                    </motion.button>
+                </div>
+
+                {/* Mobile Controls */}
+                <div className="md:hidden flex items-center gap-4">
+                    <button
+                        onClick={toggleTheme}
+                        className={`${isScrolled ? 'text-gray-600 dark:text-gray-300' : 'text-white'}`}
+                    >
+                        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                    </button>
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`${isScrolled ? 'text-black dark:text-white' : 'text-white'} hover:text-emerald-500 transition-colors`}>
                         {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>
                 </div>
@@ -71,7 +114,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, height: '100vh' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                        className="md:hidden fixed top-[72px] left-0 w-full bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-start pt-20 space-y-8 border-t border-white/10 overflow-hidden z-40"
+                        className="md:hidden fixed top-[72px] left-0 w-full bg-white/95 dark:bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-start pt-20 space-y-8 border-t border-gray-200 dark:border-white/10 overflow-hidden z-40"
                         style={{ height: 'calc(100vh - 72px)' }}
                     >
                         {['About', 'Included', 'Contacts'].map((item, i) => (
@@ -82,7 +125,7 @@ const Navbar = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 + (i * 0.1), duration: 0.5 }}
-                                className="text-gray-300 hover:text-emerald-500 text-xl font-light tracking-[0.2em] uppercase transition-colors font-serif"
+                                className="text-gray-600 dark:text-gray-300 hover:text-emerald-500 text-xl font-light tracking-[0.2em] uppercase transition-colors font-serif"
                             >
                                 {item}
                             </motion.a>
@@ -93,7 +136,7 @@ const Navbar = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5, duration: 0.5 }}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="px-12 py-4 border border-emerald-500 rounded-full text-emerald-500 text-xs font-bold tracking-widest hover:bg-emerald-500 hover:text-black transition-all mt-8"
+                            className="px-12 py-4 border border-emerald-500 rounded-full text-emerald-500 text-xs font-bold tracking-widest hover:bg-emerald-500 hover:text-white dark:hover:text-black transition-all mt-8"
                         >
                             BOOK NOW
                         </motion.button>

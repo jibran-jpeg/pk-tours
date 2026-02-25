@@ -4,6 +4,8 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
@@ -12,7 +14,7 @@
 }
 
 body {
-  @apply bg-black text-white antialiased;
+  @apply bg-white text-black dark:bg-black dark:text-white antialiased transition-colors duration-500;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
