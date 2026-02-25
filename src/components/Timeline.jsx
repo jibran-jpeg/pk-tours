@@ -2,10 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Timeline = () => {
+    const base = import.meta.env.BASE_URL;
     const timeline = [
-        { days: "Days 1-3", title: "Islamabad & Skardu", desc: "Acclimatize with lush trail hikes and fly to the mountains.", images: ["/assets/images/skardu.png", "/assets/images/thumb_valleys.png"] },
-        { days: "Days 4-10", title: "The High North", desc: "Trek through Hunza. Experience the raw beauty of the Karakoram peaks.", images: ["/assets/images/hunza.png", "/assets/images/rakaposhi.png"] },
-        { days: "Days 11-15", title: "Gilgit & Naltar", desc: "Descend to the valleys for a sensory explosion of history and lakes.", images: ["/assets/images/gilgit.png", "/assets/images/thumb_tradition.png"] },
+        { days: "Days 1-3", title: "Islamabad & Skardu", desc: "Acclimatize with lush trail hikes and fly to the mountains.", images: [`${base}assets/images/skardu.png`, `${base}assets/images/thumb_valleys.png`] },
+        { days: "Days 4-10", title: "The High North", desc: "Trek through Hunza. Experience the raw beauty of the Karakoram peaks.", images: [`${base}assets/images/hunza.png`, `${base}assets/images/rakaposhi.png`] },
+        { days: "Days 11-15", title: "Gilgit & Naltar", desc: "Descend to the valleys for a sensory explosion of history and lakes.", images: [`${base}assets/images/gilgit.png`, `${base}assets/images/thumb_tradition.png`] },
     ];
 
     return (

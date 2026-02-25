@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Preloader = ({ onLoadingComplete }) => {
+    const base = import.meta.env.BASE_URL;
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const Preloader = ({ onLoadingComplete }) => {
             >
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/assets/images/rakaposhi.png"
+                        src={`${base}assets/images/rakaposhi.png`}
                         alt="Loading background"
                         className="w-full h-full object-cover opacity-10 grayscale blur-sm scale-110"
                     />

@@ -2,12 +2,13 @@ import React from 'react';
 import { Globe, Instagram, Twitter, Send } from 'lucide-react';
 
 const Contact = () => {
+    const base = import.meta.env.BASE_URL;
     return (
         <section id="contacts" className="relative pt-20 lg:pt-32 bg-black min-h-screen font-sans transition-colors duration-500">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src="/assets/images/rakaposhi.png"
+                    src={`${base}assets/images/rakaposhi.png`}
                     alt="Rakaposhi Mountain"
                     className="w-full h-full object-cover opacity-30 transition-opacity duration-500"
                 />

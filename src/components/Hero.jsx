@@ -40,12 +40,13 @@ const Hero = () => {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, [mouseX, mouseY]);
 
+    const base = import.meta.env.BASE_URL;
     const cards = [
-        { label: "5 Valleys", desc: "Explore Peaks", img: "/assets/images/thumb_valleys.png" },
-        { label: "12 Days", desc: "Full Itinerary", img: "/assets/images/hunza.png" },
-        { label: "Memories", desc: "Scenic Views", img: "/assets/images/rakaposhi.png" },
-        { label: "Local Food", desc: "Taste specific", img: "/assets/images/thumb_food.png" },
-        { label: "Tradition", desc: "Local Culture", img: "/assets/images/thumb_tradition.png" },
+        { label: "5 Valleys", desc: "Explore Peaks", img: `${base}assets/images/thumb_valleys.png` },
+        { label: "12 Days", desc: "Full Itinerary", img: `${base}assets/images/hunza.png` },
+        { label: "Memories", desc: "Scenic Views", img: `${base}assets/images/rakaposhi.png` },
+        { label: "Local Food", desc: "Taste specific", img: `${base}assets/images/thumb_food.png` },
+        { label: "Tradition", desc: "Local Culture", img: `${base}assets/images/thumb_tradition.png` },
     ];
 
     return (
@@ -60,7 +61,7 @@ const Hero = () => {
                 }}
             >
                 <img
-                    src="/assets/images/hero_k2.png"
+                    src={`${base}assets/images/hero_k2.png`}
                     alt="K2 Mountain Pakistan"
                     className="w-full h-full object-cover opacity-70 -scale-x-100"
                 />
