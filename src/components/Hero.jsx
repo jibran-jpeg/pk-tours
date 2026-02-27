@@ -35,7 +35,7 @@ const Hero = () => {
             </div>
 
             {/* Cinematic Center Title */}
-            <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pb-[25vh] md:pb-[15vh] px-4 pointer-events-none">
+            <div className="relative z-0 flex-1 flex flex-col items-center justify-center px-4 pointer-events-none w-full min-h-[30vh]">
                 <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ const Hero = () => {
             </div>
 
             {/* Hero Content */}
-            <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
+            <div className="relative w-full z-10 pointer-events-none mt-4 md:mt-0">
                 <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 items-end gap-6 md:gap-12 pb-6 md:pb-10 pointer-events-auto">
 
                     {/* Right: Expedition Callout - Shown on top on mobile */}
