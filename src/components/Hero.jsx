@@ -15,7 +15,7 @@ const Hero = () => {
     ];
 
     return (
-        <section className="relative min-h-[100dvh] w-full bg-black overflow-hidden pt-32 flex flex-col justify-between" ref={ref}>
+        <section className="relative min-h-[100dvh] w-full bg-black overflow-hidden pt-28 md:pt-32 flex flex-col justify-between" ref={ref}>
             {/* Background Video */}
             <div className="absolute inset-0 z-0">
                 <video
@@ -35,7 +35,7 @@ const Hero = () => {
             </div>
 
             {/* Cinematic Center Title */}
-            <div className="relative z-0 flex-1 flex flex-col items-center justify-start md:justify-center px-4 pointer-events-none w-full mt-2 md:mt-0">
+            <div className="relative z-0 flex flex-col items-center justify-start md:justify-center px-4 pointer-events-none w-full mt-2 md:mt-0 md:flex-1 shrink-0">
                 <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ const Hero = () => {
             </div>
 
             {/* Hero Content */}
-            <div className="relative w-full z-10 pointer-events-none mt-4 md:mt-0">
+            <div className="relative w-full z-10 pointer-events-none mt-6 md:mt-0 shrink-0">
                 <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 items-end gap-6 md:gap-12 pb-6 md:pb-10 pointer-events-auto">
 
                     {/* Right: Expedition Callout - Shown on top on mobile */}
