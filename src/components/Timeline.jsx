@@ -49,13 +49,13 @@ const Timeline = () => {
                             {timeline.map((item, idx) => (
                                 <motion.div
                                     key={idx}
-                                    initial={{ opacity: 0, x: 30 }}
+                                    initial={{ opacity: 0, x: 20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: idx * 0.1 }}
+                                    transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.25, 1, 0.5, 1] }}
                                     viewport={{ once: true, margin: "-100px" }}
                                     className="relative"
                                 >
-                                    <div className="absolute top-2 -left-[25px] md:-left-[33px] w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white] transition-colors" />
+                                    <div className="absolute top-2 -left-[25px] md:-left-[33px] w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white] transition-transform duration-300 hover:scale-150" />
                                     <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
                                         <div className="min-w-[120px]">
                                             <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1 transition-colors">{item.days}</p>
@@ -66,13 +66,13 @@ const Timeline = () => {
                                             {item.images.map((img, i) => (
                                                 <motion.div
                                                     key={i}
-                                                    initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.95 }}
-                                                    whileInView={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-                                                    transition={{ duration: 0.8, delay: (idx * 0.1) + (i * 0.2) }}
+                                                    initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                                    transition={{ duration: 1, delay: (idx * 0.15) + (i * 0.2), ease: [0.25, 1, 0.5, 1] }}
                                                     viewport={{ once: true, margin: "100px" }}
                                                     className={`min-w-[120px] w-[140px] md:w-32 h-24 rounded-lg overflow-hidden border border-white/5 flex-shrink-0 snap-start ${i === 1 ? 'md:mt-8' : ''}`}
                                                 >
-                                                    <img src={img} alt={item.title} className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity duration-500 cursor-pointer" />
+                                                    <img src={img} alt={item.title} className="w-full h-full object-cover opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-700 cursor-pointer" />
                                                 </motion.div>
                                             ))}
                                         </div>

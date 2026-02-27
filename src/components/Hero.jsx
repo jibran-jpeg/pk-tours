@@ -1,46 +1,11 @@
-import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Instagram, Twitter, Send } from 'lucide-react';
 
 const Hero = () => {
     const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start start", "end start"]
-    });
-
-    // Scroll Parallax
-    const yTextScroll = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const yBgScroll = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-
-    // Mouse Move Parallax
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const springConfig = { damping: 25, stiffness: 100 };
-    const mouseXSpring = useSpring(mouseX, springConfig);
-    const mouseYSpring = useSpring(mouseY, springConfig);
-
-    const xBgMouse = useTransform(mouseXSpring, [-1, 1], ["-2%", "2%"]);
-    const yBgMouse = useTransform(mouseYSpring, [-1, 1], ["-2%", "2%"]);
-
-    const xTextMouse = useTransform(mouseXSpring, [-1, 1], ["-2%", "2%"]);
-    const yTextMouse = useTransform(mouseYSpring, [-1, 1], ["-2%", "2%"]);
-
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            const { innerWidth, innerHeight } = window;
-            const x = (e.clientX / innerWidth) * 2 - 1;
-            const y = (e.clientY / innerHeight) * 2 - 1;
-            mouseX.set(x);
-            mouseY.set(y);
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [mouseX, mouseY]);
-
     const base = import.meta.env.BASE_URL;
+
     const cards = [
         { label: "5 Valleys", desc: "Explore Peaks", img: `${base}assets/images/thumb_valleys.png` },
         { label: "12 Days", desc: "Full Itinerary", img: `${base}assets/images/hunza.png` },
@@ -50,80 +15,116 @@ const Hero = () => {
     ];
 
     return (
-        <section className="relative min-h-screen bg-black overflow-hidden pt-32" ref={ref}>
-            {/* Background Image - Local K2 Image with Scroll & Mouse Parallax */}
-            <motion.div
-                className="absolute inset-0 z-0 scale-105"
-                style={{
-                    y: yBgScroll,
-                    x: xBgMouse,
-                    top: yBgMouse // Use top instead of combining y directly for ease
-                }}
-            >
-                <img
-                    src={`${base}assets/images/hero_k2.png`}
-                    alt="K2 Mountain Pakistan"
-                    className="w-full h-full object-cover opacity-70 -scale-x-100"
-                />
+        <section className="relative min-h-[100dvh] w-full bg-black overflow-hidden pt-32 flex flex-col justify-between" ref={ref}>
+            {/* Background Video */}
+            <div className="absolute inset-0 z-0">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    disablePictureInPicture
+                    controls={false}
+                    poster={`${base}assets/images/hero_k2.png`}
+                    className="w-full h-full object-cover opacity-70 pointer-events-none select-none"
+                    style={{ WebkitUserSelect: 'none' }}
+                >
+                    <source src={`${base}hero-video-compressed.mp4`} type="video/mp4" />
+                </video>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
-            </motion.div>
+            </div>
 
-            {/* Giant Text - Scroll & Mouse Parallax */}
-            <motion.div
-                className="absolute inset-x-0 top-[20%] md:top-[12%] z-0 text-center w-full px-2"
-                style={{ y: yTextScroll }}
-            >
-                <motion.div style={{ x: xTextMouse, y: yTextMouse }}>
-                    <h1 className="text-[24vw] md:text-[15vw] font-black leading-none select-none tracking-tighter uppercase font-serif transition-colors duration-700 text-white/[0.05] hover:text-white/[0.08]">
+            {/* Cinematic Center Title */}
+            <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pb-[25vh] md:pb-[15vh] px-4 pointer-events-none">
+                <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                    className="flex items-center gap-3 md:gap-8 mb-6 md:mb-12"
+                >
+                    <span className="w-8 md:w-24 h-[1px] bg-emerald-500/80"></span>
+                    <span className="text-emerald-400 text-[9px] md:text-sm font-medium tracking-[0.4em] md:tracking-[0.5em] uppercase md:ml-3 shadow-black [text-shadow:0px_0px_10px_rgba(0,0,0,1)]">
+                        Discover The Unseen
+                    </span>
+                    <span className="w-8 md:w-24 h-[1px] bg-emerald-500/80"></span>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+                    className="flex flex-col items-center w-full max-w-[100vw] overflow-hidden"
+                >
+                    <h1 className="text-[17vw] sm:text-[14vw] md:text-[9vw] font-light text-white uppercase tracking-[0.02em] md:tracking-[0.05em] font-serif leading-[0.85] [text-shadow:0px_10px_30px_rgba(0,0,0,0.8)] text-center w-full">
                         NORTHERN
                     </h1>
-                    <h1 className="text-[20vw] md:text-[12vw] font-black leading-none select-none tracking-tighter uppercase font-serif -mt-4 md:-mt-8 lg:-mt-12 transition-colors duration-700 text-white/[0.1] hover:text-white/[0.15]">
+                    <h1 className="text-[10vw] sm:text-[8vw] md:text-[6vw] font-light text-emerald-50 uppercase tracking-[0.35em] md:tracking-[0.6em] font-sans leading-none mt-2 md:mt-4 md:ml-6 [text-shadow:0px_10px_30px_rgba(0,0,0,0.8)] text-center w-full pl-[0.35em] md:pl-[0.6em]">
                         PAKISTAN
                     </h1>
                 </motion.div>
-            </motion.div>
+            </div>
 
             {/* Hero Content */}
-            <div className="absolute bottom-0 left-0 w-full z-10">
-                <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 items-end gap-12 pb-4 md:pb-8">
+            <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
+                <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 items-end gap-6 md:gap-12 pb-6 md:pb-10 pointer-events-auto">
+
+                    {/* Right: Expedition Callout - Shown on top on mobile */}
+                    <div className="order-1 lg:order-2 lg:col-span-3 flex flex-col items-start lg:items-end w-full">
+                        <div className="relative text-left lg:text-right w-full flex flex-col sm:items-start lg:items-end">
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
+                                className="text-emerald-400 md:text-white/40 text-[10px] uppercase tracking-[0.3em] font-bold mb-2 md:mb-4 flex items-center lg:justify-end gap-3 [text-shadow:0px_2px_10px_rgba(0,0,0,0.8)] md:[text-shadow:none]"
+                            >
+                                <span className="w-8 h-[1px] bg-emerald-500/50 inline-block lg:hidden"></span>
+                                Seasonal Expedition
+                            </motion.p>
+                            <motion.h2
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
+                                className="text-[28px] sm:text-4xl lg:text-3xl text-white font-light font-serif mb-4 md:mb-6 leading-[1.1] tracking-tight [text-shadow:2px_4px_10px_rgba(0,0,0,0.8)]"
+                            >
+                                Beyond the <br className="hidden md:block" /><span className="italic text-emerald-400 font-normal">Karakoram</span>
+                            </motion.h2>
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1 }}
+                                className="backdrop-blur-md bg-white/10 md:bg-white border border-white/20 md:border-none text-white md:text-black px-8 py-3.5 md:px-12 md:py-3 rounded-full md:rounded-md font-bold text-[10px] md:text-xs tracking-[0.2em] uppercase hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all shadow-xl w-[220px] sm:w-auto overflow-hidden relative group"
+                            >
+                                <span className="relative z-10">JOIN TREK</span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/40 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+                            </motion.button>
+                        </div>
+                    </div>
+
                     {/* Left: Info Cards - Horizontal Scroll on Mobile */}
-                    <div className="lg:col-span-9 flex overflow-x-auto hide-scrollbar gap-4 pb-4 md:pb-0 snap-x snap-mandatory w-full pt-4 pr-8 md:pr-0">
+                    <div className="order-2 lg:order-1 lg:col-span-9 flex overflow-x-auto hide-scrollbar gap-3 md:gap-4 pb-2 md:pb-0 snap-x snap-mandatory w-full -mx-5 px-5 md:mx-0 md:px-0 scroll-smooth">
                         {cards.map((card, idx) => (
                             <motion.div
                                 key={idx}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 * idx }}
-                                className="flex-shrink-0 snap-start w-32 h-48 md:w-32 md:h-48 rounded-xl overflow-hidden relative group cursor-pointer border border-white/10"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 1.1 + (0.1 * idx) }}
+                                className="flex-shrink-0 snap-center md:snap-start w-[140px] h-[180px] md:w-32 md:h-48 rounded-2xl md:rounded-xl overflow-hidden relative group cursor-pointer border border-white/10 md:border-white/5 hover:border-white/20 transition-all shadow-2xl"
                             >
-                                <img src={card.img} alt={card.label} className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-500" />
-                                <div className="absolute bottom-4 left-3 right-3 z-10">
-                                    <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-tighter leading-none mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{card.label}</p>
-                                    <p className="text-[10px] text-white/90 leading-tight uppercase font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{card.desc}</p>
+                                <img src={card.img} alt={card.label} className="absolute inset-0 w-full h-full object-cover grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-transform duration-1000 md:scale-100 scale-105 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 md:bg-black/50 md:group-hover:bg-black/20 transition-colors duration-500" />
+                                <div className="absolute top-3 left-3 flex items-center gap-1.5 opacity-90 md:opacity-0 transition-opacity duration-300">
+                                    <span className="w-3 h-[1px] bg-emerald-400"></span>
+                                    <span className="text-[8px] font-bold text-emerald-400 uppercase tracking-widest leading-none shadow-black [text-shadow:1px_2px_4px_rgba(0,0,0,0.8)]">0{idx + 1}</span>
+                                </div>
+                                <div className="absolute bottom-4 left-4 right-4 md:left-3 md:right-3 z-10 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-all duration-300">
+                                    <p className="text-[14px] md:text-[11px] font-semibold text-white/95 uppercase tracking-wide leading-tight mb-0.5 shadow-black [text-shadow:1px_2px_4px_rgba(0,0,0,0.8)]">{card.label}</p>
+                                    <p className="text-[10px] md:text-[9px] text-white/70 leading-tight uppercase font-medium tracking-wider">{card.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
-                    </div>
-
-                    {/* Right: Expedition Callout */}
-                    <div className="lg:col-span-3 flex flex-col items-center lg:items-end w-full">
-                        <div className="relative mb-4 md:mb-8 text-center lg:text-right w-full">
-                            <p className="text-white/40 text-[10px] uppercase tracking-[0.3em] font-bold mb-4">Seasonal Expedition</p>
-                            <h2 className="text-4xl lg:text-3xl text-white font-light font-serif mb-6 leading-tight">Beyond the <br /><span className="italic text-emerald-500 font-normal">Karakoram</span></h2>
-                            <button className="bg-white text-black px-12 py-4 md:py-3 rounded-md font-bold text-xs tracking-[0.2em] uppercase hover:bg-emerald-500 hover:text-white transition-all shadow-2xl w-full md:w-auto">
-                                JOIN TREK
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Socials Floating */}
             <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-6 text-white/40 z-20">
-                <Instagram size={18} className="hover:text-emerald-500 cursor-pointer transition-colors" />
-                <Twitter size={18} className="hover:text-emerald-500 cursor-pointer transition-colors" />
-                <Send size={18} className="hover:text-emerald-500 cursor-pointer transition-colors" />
+                <a href="#" aria-label="Instagram" className="hover:text-emerald-500 cursor-pointer transition-colors"><Instagram size={18} /></a>
+                <a href="#" aria-label="Twitter" className="hover:text-emerald-500 cursor-pointer transition-colors"><Twitter size={18} /></a>
+                <a href="#" aria-label="Telegram" className="hover:text-emerald-500 cursor-pointer transition-colors"><Send size={18} /></a>
             </div>
         </section>
     );

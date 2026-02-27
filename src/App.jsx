@@ -25,18 +25,28 @@ function App() {
 
     // Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Makhan curve
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      smoothTouch: false, // Prevents lag on mobile Safari touch drag
+      touchMultiplier: 1.5,
+      wheelMultiplier: 0.8,
     });
+
+    let rafId;
 
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      lenis.destroy();
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -45,12 +55,14 @@ function App() {
         <Preloader onLoadingComplete={() => setIsLoading(false)} />
       )}
 
-      <div className="min-h-screen bg-black text-white font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-500">
+      <div className="min-h-[100dvh] bg-black text-white font-sans selection:bg-emerald-500 selection:text-white overflow-hidden">
         <Navbar />
-        <Hero />
-        <Timeline />
-        <Services />
-        <Contact />
+        <main>
+          <Hero />
+          <Timeline />
+          <Services />
+          <Contact />
+        </main>
       </div>
     </>
   );

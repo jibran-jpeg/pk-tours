@@ -2,11 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const NavLink = ({ href, children }) => (
-    <a href={href} className="hover:text-emerald-500 transition-colors">
-        {children}
-    </a>
-);
+const NavLink = ({ href, children, onClick, className }) => {
+    const handleClick = (e) => {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (onClick) onClick();
+    };
+    return (
+        <a href={href} onClick={handleClick} className={`hover:text-emerald-500 transition-colors ${className || ''}`}>
+            {children}
+        </a>
+    );
+};
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -77,17 +87,21 @@ const Navbar = () => {
                         style={{ height: 'calc(100vh - 72px)' }}
                     >
                         {['About', 'Included', 'Contacts'].map((item, i) => (
-                            <motion.a
+                            <motion.div
                                 key={item}
-                                href={`#${item.toLowerCase()}`}
-                                onClick={() => setIsMobileMenuOpen(false)}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 + (i * 0.1), duration: 0.5 }}
-                                className="text-gray-300 hover:text-emerald-500 text-xl font-light tracking-[0.2em] uppercase transition-colors font-serif"
+                                className="text-xl font-light tracking-[0.2em] uppercase font-serif"
                             >
-                                {item}
-                            </motion.a>
+                                <NavLink
+                                    href={`#${item.toLowerCase()}`}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-gray-300 hover:text-emerald-500 transition-colors"
+                                >
+                                    {item}
+                                </NavLink>
+                            </motion.div>
                         ))}
 
                         <motion.button

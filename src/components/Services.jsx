@@ -22,9 +22,9 @@ const Services = () => {
                     {items.map((item, idx) => (
                         <motion.div
                             key={idx}
-                            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-                            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                            transition={{ duration: 0.8, delay: idx * 0.15 }}
+                            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                            transition={{ duration: 1, delay: idx * 0.15, ease: [0.25, 1, 0.5, 1] }}
                             viewport={{ once: true, margin: "-50px" }}
                             className="p-8 border border-white/10 rounded-2xl group hover:bg-white/[0.03] transition-colors duration-500 h-full flex flex-col cursor-default shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
                         >
