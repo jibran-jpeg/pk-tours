@@ -1,10 +1,24 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Twitter, Send } from 'lucide-react';
 
 const Hero = () => {
     const ref = useRef(null);
     const base = import.meta.env.BASE_URL;
+    const [videoSrc, setVideoSrc] = useState(null);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            if (window.innerWidth <= 768) {
+                setVideoSrc(`${base}hero-video-mobile.mp4`);
+            } else {
+                setVideoSrc(`${base}hero-video-compressed.mp4`);
+            }
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, [base]);
 
     const cards = [
         { label: "5 Valleys", desc: "Explore Peaks", img: `${base}assets/images/thumb_valleys.png` },
@@ -18,19 +32,22 @@ const Hero = () => {
         <section className="relative min-h-[100dvh] w-full bg-black overflow-hidden pt-28 md:pt-32 flex flex-col justify-between" ref={ref}>
             {/* Background Video */}
             <div className="absolute inset-0 z-0">
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    disablePictureInPicture
-                    controls={false}
-                    poster={`${base}assets/images/hero_k2.png`}
-                    className="w-full h-full object-cover opacity-70 pointer-events-none select-none"
-                    style={{ WebkitUserSelect: 'none' }}
-                >
-                    <source src={`${base}hero-video-compressed.mp4`} type="video/mp4" />
-                </video>
+                {videoSrc && (
+                    <video
+                        key={videoSrc}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        disablePictureInPicture
+                        controls={false}
+                        poster={`${base}assets/images/hero_k2.png`}
+                        className="w-full h-full object-cover opacity-70 pointer-events-none select-none"
+                        style={{ WebkitUserSelect: 'none' }}
+                    >
+                        <source src={videoSrc} type="video/mp4" />
+                    </video>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
             </div>
 
