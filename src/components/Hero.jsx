@@ -102,17 +102,17 @@ const Hero = () => {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 1.1 + (0.1 * idx) }}
-                                className="flex-shrink-0 snap-center md:snap-start w-[140px] h-[180px] md:w-32 md:h-48 rounded-2xl md:rounded-xl overflow-hidden relative group cursor-pointer border border-white/10 md:border-white/5 hover:border-white/20 transition-all shadow-2xl"
+                                className="flex-shrink-0 snap-center md:snap-start w-[120px] h-[155px] md:w-32 md:h-48 rounded-2xl md:rounded-xl overflow-hidden relative group cursor-pointer border border-white/10 md:border-white/5 hover:border-white/20 transition-all shadow-2xl"
                             >
                                 <img src={card.img} alt={card.label} className="absolute inset-0 w-full h-full object-cover grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-transform duration-1000 md:scale-100 scale-105 group-hover:scale-110" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 md:bg-black/50 md:group-hover:bg-black/20 transition-colors duration-500" />
-                                <div className="absolute top-3 left-3 flex items-center gap-1.5 opacity-90 md:opacity-0 transition-opacity duration-300">
-                                    <span className="w-3 h-[1px] bg-emerald-400"></span>
-                                    <span className="text-[8px] font-bold text-emerald-400 uppercase tracking-widest leading-none shadow-black [text-shadow:1px_2px_4px_rgba(0,0,0,0.8)]">0{idx + 1}</span>
+                                <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 opacity-90 md:opacity-0 transition-opacity duration-300">
+                                    <span className="w-2.5 h-[1px] bg-emerald-400"></span>
+                                    <span className="text-[7px] font-bold text-emerald-400 uppercase tracking-widest leading-none shadow-black [text-shadow:1px_2px_4px_rgba(0,0,0,0.8)]">0{idx + 1}</span>
                                 </div>
-                                <div className="absolute bottom-4 left-4 right-4 md:left-3 md:right-3 z-10 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-all duration-300">
-                                    <p className="text-[14px] md:text-[11px] font-semibold text-white/95 uppercase tracking-wide leading-tight mb-0.5 shadow-black [text-shadow:1px_2px_4px_rgba(0,0,0,0.8)]">{card.label}</p>
-                                    <p className="text-[10px] md:text-[9px] text-white/70 leading-tight uppercase font-medium tracking-wider">{card.desc}</p>
+                                <div className="absolute bottom-3 left-3 right-3 md:left-3 md:right-3 z-10 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-all duration-300">
+                                    <p className="text-[12px] md:text-[11px] font-semibold text-white/95 uppercase tracking-wide leading-tight mb-0.5 shadow-black [text-shadow:1px_2px_4px_rgba(0,0,0,0.8)]">{card.label}</p>
+                                    <p className="text-[9px] md:text-[9px] text-white/70 leading-tight uppercase font-medium tracking-widest">{card.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
