@@ -29,7 +29,7 @@ const Hero = () => {
                     className="w-full h-full object-cover opacity-70 pointer-events-none select-none"
                     style={{ WebkitUserSelect: 'none' }}
                 >
-                    <source src={`${base}hero-video-best.mp4`} type="video/mp4" />
+                    <source src={`${base}hero-video-best-compressed.mp4`} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
             </div>
