@@ -35,12 +35,12 @@ const Hero = () => {
             </div>
 
             {/* Cinematic Center Title */}
-            <div className="relative z-0 flex-1 flex flex-col items-center justify-center px-4 pointer-events-none w-full min-h-[30vh]">
+            <div className="relative z-0 flex-1 flex flex-col items-center justify-start md:justify-center px-4 pointer-events-none w-full mt-2 md:mt-0">
                 <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                    className="flex items-center gap-3 md:gap-8 mb-6 md:mb-12"
+                    className="flex items-center gap-3 md:gap-8 mb-4 md:mb-12"
                 >
                     <span className="w-8 md:w-24 h-[1px] bg-emerald-500/80"></span>
                     <span className="text-emerald-400 text-[9px] md:text-sm font-medium tracking-[0.4em] md:tracking-[0.5em] uppercase md:ml-3 shadow-black [text-shadow:0px_0px_10px_rgba(0,0,0,1)]">
